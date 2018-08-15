@@ -1,0 +1,11 @@
+body {
+  background-color: #16587f;
+  background-image: url('../images/wallhaven-275892.jpg');
+  background-size: cover;
+}
+
+.jumbotron,
+#submit {
+  background-color: #0b2c40; 
+  color: white;
+}

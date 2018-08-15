@@ -14,12 +14,11 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 // these need to be repurposed for trains
-var employeeName;
-var role;
-var startDate;
-var monthlyRate;
-var monthsWorked;
-var totalBilled;
+var trainName;
+var destination;
+var startTime;
+var frequency;
+var nextArrival;
 
 
 
@@ -30,16 +29,16 @@ $("#submit").on("click", function(event) {
 
   event.preventDefault();
 
-  employeeName = $("#employeeName").val().trim();
-  role = $("#role").val().trim();
-  startDate = $("#startDate").val().trim();
-  monthlyRate = parseInt($("#monthlyRate").val().trim())
+  trainName = $("#trainName").val().trim();
+  destination = $("#destination").val().trim();
+  startTime = $("#startTime").val().trim();
+  frequency = parseInt($("#frequency").val().trim())
 
   database.ref().push({
-      employeeName: employeeName,
-      role: role,
-      startDate: startDate,
-      monthlyRate: monthlyRate,
+      trainName: trainName,
+      destination: destination,
+      startTime: startTime,
+      frequency: frequency,
       dateAdded: firebase.database.ServerValue.TIMESTAMP
 
   });
@@ -50,18 +49,16 @@ database.ref().on("child_added", function(event) {
 
   var newRow = $("<tr>")
   var tdName = $("<td>")
-  tdName.text(event.val().employeeName)
-  var tdRole = $("<td>")
-  tdRole.text(event.val().role)
+  tdName.text(event.val().trainName)
+  var tdDestination = $("<td>")
+  tdDestination.text(event.val().destination)
   var tdStart = $("<td>")
-  tdStart.text(event.val().startDate)
-  var tdWorked = $("<td>")
-  tdWorked.text(event.val().monthsWorked) 
-  var tdRate = $("<td>")
-  tdRate.text(event.val().monthlyRate)
-  var tdBilled = $("<td>")
-  tdBilled.text(event.val().totalBilled)
-  newRow.append(tdName, tdRole, tdStart, tdWorked, tdRate,  tdBilled)
+  tdStart.text(event.val().startTime)
+  var tdFrequency = $("<td>")
+  tdFrequency.text(event.val().frequency)
+  var tdNext = $("<td>")
+  tdNext.text('')
+  newRow.append(tdName, tdDestination, tdStart, tdFrequency, tdNext)
   $("tbody").append(newRow)
 
 });
